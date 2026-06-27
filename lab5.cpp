@@ -9,65 +9,32 @@ struct Student {
     string Group;
 };
 
-template <typename T>
-void PrintToConsole(T value) {
-    cout << value << endl;
-}
-
-void PrintToConsole(int arr[], int size) {
-    for (int i = 0; i < size; i++) {
-        cout << arr[i] << "\t";
-    }
-    cout << endl;
-}
-
-void PrintToConsole(int arr[][3], int rows) {
+void PrintToConsole(Student students[][2], int rows) {
     for (int i = 0; i < rows; i++) {
-        for (int j = 0; j < 3; j++) {
-            cout << arr[i][j] << "\t";
+        cout << "=== Student " << i + 1 << " ===" << endl;
+        cout << "FIO: " << students[i][0].Fio << endl;
+        cout << "Age: " << students[i][0].Age << endl;
+        cout << "Group: " << students[i][0].Group << endl;
+        
+        if (students[i][1].Age != 0) {
+            cout << "\n--- Second student in row ---" << endl;
+            cout << "FIO: " << students[i][1].Fio << endl;
+            cout << "Age: " << students[i][1].Age << endl;
+            cout << "Group: " << students[i][1].Group << endl;
         }
         cout << endl;
     }
 }
 
-void PrintToConsole(Student student) {
-    cout << "FIO: " << student.Fio << endl;
-    cout << "Age: " << student.Age << endl;
-    cout << "Group: " << student.Group << endl;
-}
-
-template <typename T>
-void PrintToConsole(T arr[], int size) {
-    for (int i = 0; i < size; i++) {
-        cout << arr[i] << "\t";
-    }
-    cout << endl;
-}
-
 int main() {
-    cout << "=== INT ===" << endl;
-    PrintToConsole(1);
+    Student students[3][2] = {
+        { {"Ivanov I.I.", 18, "2-MZ-4"}, {"Petrov P.P.", 19, "3-MZ-4"} },
+        { {"Sidorov S.S.", 18, "2-MZ-4"}, {"Kozlov K.K.", 20, "4-MZ-4"} },
+        { {"Smirnov S.S.", 19, "3-MZ-4"}, {} }
+    };
     
-    cout << "\n=== DOUBLE ===" << endl;
-    PrintToConsole(3.14);
-    
-    cout << "\n=== CHAR ===" << endl;
-    PrintToConsole('A');
-    
-    cout << "\n=== STRING ===" << endl;
-    PrintToConsole(string("Hello, World!"));
-    
-    int arr[5] = { 10, 20, 30, 40, 50 };
-    cout << "\n=== ARRAY 1D ===" << endl;
-    PrintToConsole(arr, 5);
-    
-    int arr2D[3][3] = { {1, 2, 3}, {4, 5, 6}, {7, 8, 9} };
-    cout << "\n=== ARRAY 2D ===" << endl;
-    PrintToConsole(arr2D, 3);
-    
-    Student student = { "Laptev Andrei Anatolievich", 22, "2-MZ-4" };
-    cout << "\n=== STUDENT ===" << endl;
-    PrintToConsole(student);
+    cout << "=== TWO-DIMENSIONAL ARRAY OF STUDENTS ===" << endl;
+    PrintToConsole(students, 3);
     
     return 0;
 }
