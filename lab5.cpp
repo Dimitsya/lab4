@@ -9,32 +9,51 @@ struct Student {
     string Group;
 };
 
-void PrintToConsole(Student students[][2], int rows) {
+// Шаблонная функция для вывода двумерного массива
+template <typename T>
+void PrintToConsole(T** arr, int rows, int cols) {
     for (int i = 0; i < rows; i++) {
-        cout << "=== Student " << i + 1 << " ===" << endl;
-        cout << "FIO: " << students[i][0].Fio << endl;
-        cout << "Age: " << students[i][0].Age << endl;
-        cout << "Group: " << students[i][0].Group << endl;
-        
-        if (students[i][1].Age != 0) {
-            cout << "\n--- Second student in row ---" << endl;
-            cout << "FIO: " << students[i][1].Fio << endl;
-            cout << "Age: " << students[i][1].Age << endl;
-            cout << "Group: " << students[i][1].Group << endl;
+        for (int j = 0; j < cols; j++) {
+            cout << arr[i][j] << "\t";
+        }
+        cout << endl;
+    }
+}
+
+
+template <>
+void PrintToConsole<Student>(Student** arr, int rows, int cols) {
+    for (int i = 0; i < rows; i++) {
+        cout << "=== Row " << i + 1 << " ===" << endl;
+        for (int j = 0; j < cols; j++) {
+            // Проверка, что студент существует
+            if (arr[i][j].Age != 0) {
+                cout << "  Student " << j + 1 << ":" << endl;
+                cout << "    FIO: " << arr[i][j].Fio << endl;
+                cout << "    Age: " << arr[i][j].Age << endl;
+                cout << "    Group: " << arr[i][j].Group << endl;
+            }
         }
         cout << endl;
     }
 }
 
 int main() {
-    Student students[3][2] = {
-        { {"Ivanov I.I.", 18, "2-MZ-4"}, {"Petrov P.P.", 19, "3-MZ-4"} },
-        { {"Sidorov S.S.", 18, "2-MZ-4"}, {"Kozlov K.K.", 20, "4-MZ-4"} },
-        { {"Smirnov S.S.", 19, "3-MZ-4"}, {} }
-    };
+    // Создаем динамический двумерный массив
+    int rows = 3, cols = 2;
+    Student** students = new Student*[rows];
+    for (int i = 0; i < rows; i++) {
+        students[i] = new Student[cols];
+    }
+
+    students[0][0] = {"Ivanov I.I.", 18, "2-MZ-4"};
+    students[0][1] = {"Petrov P.P.", 19, "3-MZ-4"};
+    students[1][0] = {"Sidorov S.S.", 18, "2-MZ-4"};
+    students[1][1] = {"Kozlov K.K.", 20, "4-MZ-4"};
+    students[2][0] = {"Smirnov S.S.", 19, "3-MZ-4"};
+    students[2][1] = {};  // пустой 
     
     cout << "=== TWO-DIMENSIONAL ARRAY OF STUDENTS ===" << endl;
-    PrintToConsole(students, 3);
-    
-    return 0;
+    PrintToConsole(students, rows, cols);
+  
 }
